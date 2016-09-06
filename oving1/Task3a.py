@@ -48,10 +48,12 @@ h = [[1, 4, 6, 4, 1],
      [1, 4, 6, 4, 1]]
 hg = [[i * 1/256 for i in row] for row in h]
 
+'''
 M1 = imageToMatrix(Image.open("D:\\Prosjekter\\Universitet\\VisDat\\oving1\\images\\5.1.10-aerial.tiff"))
 I2 = matrixToImage(applyFilter(M1, ha))
 I3 = matrixToImage(applyFilter(M1, hg))
 I2.show()
 I3.show()
-#I2.save("D:\\Prosjekter\\Universitet\\VisDat\\oving1\\processed images\\Task3a1.bmp")
-#I3.save("D:\\Prosjekter\\Universitet\\VisDat\\oving1\\processed images\\Task3a2.bmp")
+I2.save("D:\\Prosjekter\\Universitet\\VisDat\\oving1\\processed images\\Task3a1.bmp")
+I3.save("D:\\Prosjekter\\Universitet\\VisDat\\oving1\\processed images\\Task3a2.bmp")
+'''
