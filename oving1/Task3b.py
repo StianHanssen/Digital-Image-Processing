@@ -1,5 +1,4 @@
-from PIL import Image
-from Task3 import *
+from Task3a import *
 
 
 def imageToRGBMatrix(I):
@@ -24,6 +23,6 @@ I1 = matrixToRGBImage(M2[0], M2[1], M2[2])
 I2 = matrixToRGBImage(M3[0], M3[1], M3[2])
 I1.show()
 I2.show()
-I1.save("D:\\Prosjekter\\Universitet\\VisDat\\oving1\\processed images\\Task3b1.bmp")
-I2.save("D:\\Prosjekter\\Universitet\\VisDat\\oving1\\processed images\\Task3b2.bmp")
+#I1.save("D:\\Prosjekter\\Universitet\\VisDat\\oving1\\processed images\\Task-3b-haFilter.bmp")
+#I2.save("D:\\Prosjekter\\Universitet\\VisDat\\oving1\\processed images\\Task-3b-hgFilter.bmp")
 '''

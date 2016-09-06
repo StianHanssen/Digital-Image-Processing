@@ -19,15 +19,15 @@ def applyFilter(M, h):
     newM = [row[:] for row in M]
     for y in range(height - hSize + 1):
         for x in range(width - hSize + 1):
-            newM[y + offset][x + offset] = applyPixel(M, h, x, y), M[y + offset][x + offset]
+            newM[y + offset][x + offset] = applyPixel(M, h, x, y)
     return newM
 
 
 def matrixToImage(M):
     line = [i for row in M for i in row]
-    I = Image.new('LA', (len(M[0]), len(M)))
+    I = Image.new('L', (len(M[0]), len(M)))
     I.putdata(line)
-    return I.convert('L')
+    return I
 
 
 def imageToMatrix(I):
@@ -54,6 +54,6 @@ I2 = matrixToImage(applyFilter(M1, ha))
 I3 = matrixToImage(applyFilter(M1, hg))
 I2.show()
 I3.show()
-I2.save("D:\\Prosjekter\\Universitet\\VisDat\\oving1\\processed images\\Task3a1.bmp")
-I3.save("D:\\Prosjekter\\Universitet\\VisDat\\oving1\\processed images\\Task3a2.bmp")
+#I2.save("D:\\Prosjekter\\Universitet\\VisDat\\oving1\\processed images\\Task-3a-haFilter.bmp")
+#I3.save("D:\\Prosjekter\\Universitet\\VisDat\\oving1\\processed images\\Task-3a-hgFilter.bmp")
 '''
