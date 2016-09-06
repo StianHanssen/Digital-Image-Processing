@@ -13,9 +13,11 @@ def grayify(function, image):
     return I
 
 '''
-I1 = Image.open("D:\\Prosjekter\\Visdat\\oving1\\images\\4.2.06-lake.tiff")
-I2 = grayify(f, im)
-I3 = grayify(g, im)
+I1 = Image.open("D:\\Prosjekter\\Universitet\\VisDat\\oving1\\images\\4.2.06-lake.tiff")
+I2 = grayify(f, I1)
+I3 = grayify(g, I1)
 I2.show()
 I3.show()
+#I2.save("D:\\Prosjekter\\Universitet\\VisDat\\oving1\\processed images\\Task-1-meanFilter.bmp")
+#I3.save("D:\\Prosjekter\\Universitet\\VisDat\\oving1\\processed images\\Task-1-valueFilter.bmp")
 '''

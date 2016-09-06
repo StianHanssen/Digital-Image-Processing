@@ -4,10 +4,10 @@ from Task3a import *
 def imageToRGBMatrix(I):
     data = list(I.getdata())
     width, height = I.size
-    S = [None, None, None]
+    M = [None, None, None]
     for i in range(3):
-        S[i] = [[j[i] for j in data[row * width:(row + 1) * width]] for row in range(height)]
-    return S
+        M[i] = [[j[i] for j in data[row * width:(row + 1) * width]] for row in range(height)]
+    return M
 
 
 def matrixToRGBImage(Mr, Mg, Mb):
