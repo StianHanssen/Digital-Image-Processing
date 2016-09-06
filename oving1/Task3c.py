@@ -5,14 +5,6 @@ from math import sqrt
 def calculateMagnitude(Mx, My):
     return [[floor(sqrt((Mx[y][x] ** 2) + (My[y][x] ** 2))) for x in range(len(Mx[0]))] for y in range(len(Mx))]
 
-
-def test(M):
-    for y in range(len(M)):
-        for x in range(len(M[0])):
-            if type(M[y][x]) != int:
-                print(M[y][x])
-
-
 sx = [[1, 0, -1],
       [2, 0, -2],
       [1, 0, -1]]
