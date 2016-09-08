@@ -1,10 +1,10 @@
 from PIL import Image
+from Task3a import getImagePath
 
-
-def f(r, g, b):
+def mean(r, g, b):
     return (r + g + b)/3
 
-def g(r, g, b):
+def values(r, g, b):
     return 0.2126*r + 0.715*g + 0.0722*b
 
 def grayify(function, image):
@@ -12,12 +12,11 @@ def grayify(function, image):
     I.putdata([function(r, g, b) for (r, g, b) in image.getdata()])
     return I
 
-'''
-I1 = Image.open("D:\\Prosjekter\\Universitet\\VisDat\\oving1\\images\\4.2.06-lake.tiff")
-I2 = grayify(f, I1)
-I3 = grayify(g, I1)
-I2.show()
-I3.show()
-#I2.save("D:\\Prosjekter\\Universitet\\VisDat\\oving1\\processed images\\Task-1-meanFilter.bmp")
-#I3.save("D:\\Prosjekter\\Universitet\\VisDat\\oving1\\processed images\\Task-1-valueFilter.bmp")
-'''
+if __name__ == "__main__":
+    I1 = Image.open(getImagePath("4.2.06-lake.tiff"))
+    I2 = grayify(mean, I1)
+    I3 = grayify(values, I1)
+    I2.show()
+    I3.show()
+    #I2.save(getImagePath("Task-1-meanFilter.bmp", True))
+    #I3.save(getImagePath("Task-1-valueFilter.bmp", True))
