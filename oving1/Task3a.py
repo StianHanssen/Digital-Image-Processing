@@ -40,6 +40,7 @@ def printMatrix(A):
     for row in A:
         print(row)
 
+
 def getImagePath(imageName, save=False):
     path = os.path.dirname(os.path.abspath(__file__))
     path += ("\\processed images\\" if save else "\\images\\") + imageName
