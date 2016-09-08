@@ -5,7 +5,6 @@ from math import sqrt
 def calculateMagnitude(Mx, My):
     return [[sqrt((Mx[y][x] ** 2) + (My[y][x] ** 2)) for x in range(len(Mx[0]))] for y in range(len(Mx))]
 
-
 def rotateMatrix180(M):
     return list(reversed([list(reversed(row)) for row in M]))
 

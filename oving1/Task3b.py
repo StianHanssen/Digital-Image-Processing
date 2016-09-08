@@ -9,7 +9,6 @@ def imageToRGBMatrix(I):
         M[i] = [[j[i] for j in data[row * width:(row + 1) * width]] for row in range(height)]
     return M
 
-
 def matrixToRGBImage(Mr, Mg, Mb):
     M = [Mr, Mg, Mb]
     I = [matrixToImage(M[i]) for i in range(3)]

@@ -3,13 +3,13 @@ from random import randint
 from math import floor
 import os
 
+
 def applyPixel(M, h, x, y):
     value = 0
     for i in range(len(h)):
         for j in range(len(h)):
             value += floor(M[y + i][x + j] * h[i][j])
     return value
-
 
 def applyFilter(M, h):
     hSize = len(h)
@@ -22,24 +22,20 @@ def applyFilter(M, h):
             newM[y + offset][x + offset] = applyPixel(M, h, x, y)
     return newM
 
-
 def matrixToImage(M):
     line = [i for row in M for i in row]
     I = Image.new('L', (len(M[0]), len(M)))
     I.putdata(line)
     return I
 
-
 def imageToMatrix(I):
     data = list(I.convert('L').getdata())
     width, height = I.size
     return [data[row * width:(row + 1) * width] for row in range(height)]
 
-
 def printMatrix(A):
     for row in A:
         print(row)
-
 
 def getImagePath(imageName, save=False):
     path = os.path.dirname(os.path.abspath(__file__))

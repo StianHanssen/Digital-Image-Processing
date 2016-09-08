@@ -1,6 +1,7 @@
 from PIL import Image
 from Task3a import getImagePath
 
+
 def mean(r, g, b):
     return (r + g + b)/3
 

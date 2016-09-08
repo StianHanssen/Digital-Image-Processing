@@ -1,6 +1,7 @@
 from PIL import Image
 from Task3a import getImagePath
 
+
 def f(p):
     return p/255
 
