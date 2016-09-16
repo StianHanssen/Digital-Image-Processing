@@ -8,11 +8,10 @@ def sharpen(I, h):
     G = M + Mf
     return Image.fromarray(G)
 
-H = [[0, -1, 0],
-     [-1, 4, -1],
-     [0, -1, 0]]
-
 if __name__ == "__main__":
-    I1 = Image.open(getImagePath("bush.tiff")).convert('L')
-    I2 = sharpen(I1, np.array(H))
+    I1 = Image.open(getImagePath("4.2.06-lake.tiff")).convert('L')
+    I2 = sharpen(I1, np.array(hs))
     I2.show()
+    '''
+    I2.save(getImagePath("Task-1b-SharpenedImage.png", True))
+    '''
