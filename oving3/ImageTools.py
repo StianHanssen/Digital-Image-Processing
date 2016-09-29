@@ -1,6 +1,6 @@
 from PIL import Image
 from random import randint
-from math import floor
+from math import floor, ceil
 import os
 
 
