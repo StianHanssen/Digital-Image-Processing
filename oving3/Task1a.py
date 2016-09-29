@@ -15,10 +15,13 @@ def global_threshold(I, Ti, Td):
     return T
 
 def segment(I, T):
-    return I.point(lambda i: 255 if i > T else 0)
+    return I.point(lambda i: 1 if i > T else 0)
+
+def from_bin_to_visual(I):
+    return I.point(lambda i: 255 if i == 1 else 0)
 
 if __name__ == "__main__":
-    I1 = Image.open(getImagePath("Fig1051(a)(defective_weld).tif")).convert('L')
+    I1 = Image.open(getImagePath("noisy.tiff")).convert('L')
     T = global_threshold(I1, 128, 1)  # Chose 128 because it is half of max intensity, and 1 for high precision
-    I2 = segment(I1, T)
+    I2 = from_bin_to_visual(segment(I1, T))
     I2.show()
