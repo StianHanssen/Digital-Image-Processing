@@ -8,6 +8,25 @@ def subtract(M1, M2):
                 newM[y][x] = M1[y][x]
     return newM
 
+def hits(A, F, start_x, start_y):
+    for col_i in range(len(F)):
+        for row_i in range(len(F[0])):
+            if A[start_y+col_i][start_x+row_i] == 0 and F[col_i][row_i] == 1:
+                return True
+    return False
+
+def dilate(M, h):
+    hSize = len(h)
+    width = len(M[0])
+    height = len(M)
+    offset = floor(hSize/2)
+    newM = [[0 for i in range(len(M[0]))] for j in range(len(M))]
+    for y in range(height - hSize + 1):
+        for x in range(width - hSize + 1):
+            if hits(M, h, x, y):
+                newM[y + offset][x + offset] = 1
+    return newM
+
 def erode(M, h):
     hSize = len(h)
     width = len(M[0])

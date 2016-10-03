@@ -22,9 +22,10 @@ def from_bin_to_visual(I):
 
 if __name__ == "__main__":
     I1 = Image.open(getImagePath("Fig1043(a)(yeast_USC).tif")).convert('L')
-    T = global_threshold(I1, 128, 1)  # Chose 128 because it is half of max intensity, and 1 for high precision
+    T = global_threshold(I1, 100, 1)  # Chose 128 because it is half of max intensity, and 1 for high precision
     I2 = from_bin_to_visual(segment(I1, T))
     I2.show()
+    print(T)
     '''
     I2.save(getImagePath("Task-1b-threshold.png", True))
     '''
