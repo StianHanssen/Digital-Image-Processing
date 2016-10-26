@@ -3,12 +3,17 @@
 #include "gloom/gloom.hpp"
 #include "gloom/shader.hpp"
 #include "glm/glm.hpp"
+#include "glm/gtx/transform.hpp"
+#include "glm/mat4x4.hpp"
+#include "glm/vec3.hpp"
+#include "glm/vec2.hpp"
 #include "glm/gtc/matrix_transform.hpp"
 #include "glm/gtc/type_ptr.hpp"
 
-GLfloat positions[3] = { 0.0f, 0.0f, 0.0f }; //x, y, z
-GLfloat angles[2] = { 0.0, 0.0 }; //yaw, pitch
-GLfloat movementSpeed = 0.1;
+glm::vec3 positions(0.0f, 0.0f, 5.0f); //x, y, z
+glm::vec2 angles(0.0f, 0.0f); //x - yaw - horizontal, y - pitch - vertical
+GLfloat movementSpeed = 0.2;
+GLfloat angleSpeed = 0.1;
 
 void runProgram(GLFWwindow* window)
 {
@@ -28,6 +33,7 @@ void runProgram(GLFWwindow* window)
 	// Set up your scene here (create Vertex Array Objects, etc.)
 	printGLError();
 	GLuint createVAO(GLfloat* vertices, GLuint verticesLen, GLuint* indices, GLuint indicesLen, GLfloat* colours, GLuint coloursLen);
+	glm::mat4 camera();
 	GLfloat vertices[] = { 
 		-1.000f, -1.00f, 0.0f,
 		 0.000f, -1.00f, 0.0f,
@@ -64,12 +70,7 @@ void runProgram(GLFWwindow* window)
 		1.000f, 1.000f, 1.000f,
 		0.195f, 0.548f, 0.859f 
 	};
-	GLfloat transform[4][4] = { 
-		1.0f, 0.0f, 0.0f, 0.0f,
-		0.0f, 1.0f, 0.0f, 0.0f,
-		0.0f, 0.0f, 1.0f, 0.0f,
-		0.0f, 0.0f, 0.0f, 1.0f 
-	};
+	glm::mat4x4 transform2 = glm::mat4(1);
 	printGLError();
 	GLuint verticesLen = 36;
 	GLuint indicesLen = 18;
@@ -93,7 +94,7 @@ void runProgram(GLFWwindow* window)
 		// Activate shader program
 		shader.activate();
 		glBindVertexArray(vaoid);
-		glUniformMatrix4fv(0, 1, GL_FALSE, &transform[0][0]);
+		glUniformMatrix4fv(0, 1, GL_FALSE, &camera()[0][0]);
 		glDrawElements(GL_TRIANGLES, indicesLen, GL_UNSIGNED_INT, 0);
 		//glDrawArrays(GL_TRIANGLES, 0, 3);
 		printGLError();
@@ -118,54 +119,54 @@ void keyboardCallback(GLFWwindow* window, int key, int scancode,
 		glfwSetWindowShouldClose(window, GL_TRUE);
 	}
 	// Move left
-	else if (key == GLFW_KEY_A && action == GLFW_PRESS)
+	if (key == GLFW_KEY_A && action == GLFW_PRESS)
 	{
-		positions[0] -= 1 * movementSpeed;
+		positions.x -= movementSpeed;
 	}
 	// Move right
 	else if (key == GLFW_KEY_D && action == GLFW_PRESS)
 	{
-		positions[0] += 1 * movementSpeed;
+		positions.x += movementSpeed;
 	}
 	// Move forward
-	else if (key == GLFW_KEY_W && action == GLFW_PRESS)
+	if (key == GLFW_KEY_W && action == GLFW_PRESS)
 	{
-		positions[2] += 1 * movementSpeed;
+		positions.z -= movementSpeed;
 	}
 	// Move back
 	else if (key == GLFW_KEY_S && action == GLFW_PRESS)
 	{
-		positions[2] -= 1 * movementSpeed;
+		positions.z += movementSpeed;
 	}
 	// Move up
-	else if (key == GLFW_KEY_E && action == GLFW_PRESS)
+	if (key == GLFW_KEY_E && action == GLFW_PRESS)
 	{
-		positions[1] += 1 * movementSpeed;
+		positions.y += movementSpeed;
 	}
 	// Move down
 	else if (key == GLFW_KEY_Q && action == GLFW_PRESS)
 	{
-		positions[1] -= 1 * movementSpeed;
+		positions.y -= movementSpeed;
 	}
 	// Rotate horizontally clockwise
-	else if (key == GLFW_KEY_RIGHT && action == GLFW_PRESS)
+	if (key == GLFW_KEY_RIGHT && action == GLFW_PRESS)
 	{
-		angles[0] += 1 * movementSpeed;
+		angles.x += angleSpeed;
 	}
 	// Rotate horizontally anti clockwise
 	else if (key == GLFW_KEY_LEFT && action == GLFW_PRESS)
 	{
-		angles[0] -= 1 * movementSpeed;
+		angles.x -= angleSpeed;
 	}
 	// Rotate vertically clockwise
-	else if (key == GLFW_KEY_DOWN && action == GLFW_PRESS)
+	if (key == GLFW_KEY_DOWN && action == GLFW_PRESS)
 	{
-		angles[1] += 1 * movementSpeed;
+		angles.y -= angleSpeed;
 	}
 	// Rotate vertically anti clockwise
 	else if (key == GLFW_KEY_UP && action == GLFW_PRESS)
 	{
-		angles[1] -= 1 * movementSpeed;
+		angles.y += angleSpeed;
 	}
 
 }
@@ -198,4 +199,13 @@ GLuint createVAO(GLfloat* vertices, GLuint verticesLen, GLuint* indices, GLuint 
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, indicesLen * sizeof(GLuint), indices, GL_STATIC_DRAW);
 
 	return vaoid;
+}
+
+glm::mat4 camera()
+{
+	glm::mat4 projection = glm::perspective(glm::radians(45.0f), 1.0f, 0.1f, 100.0f);
+	glm::mat4 view = glm::rotate(glm::mat4(1.0f), angles.y, glm::vec3(-1.0f, 0.0f, 0.0f));
+	view = glm::rotate(view, angles.x, glm::vec3(0.0f, 1.0f, 0.0f));
+	view = glm::translate(view, -positions);
+	return projection * view;
 }
