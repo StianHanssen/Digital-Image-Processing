@@ -1,5 +1,6 @@
 from Task1b import *
 from Task3c import *
+from wpa_testing import *
 from PIL import ImageEnhance, ImageFilter
 
 
@@ -37,8 +38,10 @@ def invert_bin(im):
     return im.point(lambda i: f(i))
 
 if __name__ == "__main__":
-    im1 = Image.open(getImagePath("easy02.png")).convert('L')
+    im1 = Image.open(getImagePath("difficult01.png"))
+    im1 = map_color_wta(im1).convert('L')
+    im1.show()
     for im in extract_all(im1, (8, 5)):
-        m = inverter(region_growing_method(im, tuple([(1, 1)]), 23))
+        m = inverter(region_growing_method(im, tuple([(1, 1)]), 1))
         m = from_bin_to_visual(m)
         m.show()

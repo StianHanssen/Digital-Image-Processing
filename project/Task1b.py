@@ -27,11 +27,6 @@ def region_growing_method(I, seeds, thresh_lim=None, neumann=False):
     m = np.matrix(I)
     s = np.full((width, height), 1, dtype=int)
     thresholds = gen_thresholds(m, seeds)
-    weight = global_threshold(I, 125, 1) / 120
-    weight = 1 if weight > 1 else weight
-    thresh_lim = weight * thresh_lim
-    thresh_lim = 19 if thresh_lim < 19 else thresh_lim
-    print(thresh_lim)
     visited = set()
     for seed in seeds:
         to_visit = set([seed])
