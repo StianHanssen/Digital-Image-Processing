@@ -3,6 +3,21 @@ from random import randint
 from math import floor
 import os
 
+def padding(I):
+    trans = [Image.ROTATE_180, Image.FLIP_LEFT_RIGHT, Image.FLIP_LEFT_RIGHT,
+             Image.FLIP_TOP_BOTTOM, Image.FLIP_LEFT_RIGHT, Image.FLIP_LEFT_RIGHT,
+             Image.FLIP_TOP_BOTTOM, Image.FLIP_LEFT_RIGHT, Image.FLIP_LEFT_RIGHT]
+    img_w, img_h = I.size
+    background = Image.new('RGB', (img_w * 3, img_h * 3))
+    bg_w, bg_h = background.size
+    for i in range(9):
+        I = I.transpose(trans[i])
+        x = i % 3
+        y = floor(i / 3)
+        pos = (x * img_w, y * img_h)
+        background.paste(I, pos)
+    offset = (img_w, img_h)
+    return background, offset
 
 def applyPixel(M, h, x, y):
     value = 0
@@ -11,16 +26,16 @@ def applyPixel(M, h, x, y):
             value += floor(M[y + i][x + j] * h[i][j])
     return value
 
-def applyFilter(M, h):
-    hSize = len(h)
-    width = len(M[0])
-    height = len(M)
-    offset = floor(hSize/2)
+def applyFilter(I, h):
+    I, offset = padding(I)
+    M = imageToMatrix(I)
+    width, height = offset
     newM = [row[:] for row in M]
-    for y in range(height - hSize + 1):
-        for x in range(width - hSize + 1):
-            newM[y + offset][x + offset] = applyPixel(M, h, x, y)
-    return newM
+    for y in range(height, height * 2):
+        for x in range(width, width * 2):
+            newM[y][x] = applyPixel(M, h, x, y)
+    newI = matrixToImage(newM).crop((width, height, width * 2, height * 2))
+    return newI
 
 def matrixToImage(M):
     line = [i for row in M for i in row]
