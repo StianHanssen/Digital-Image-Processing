@@ -2,7 +2,7 @@ from area_segmentation import *
 from math import sqrt
 
 board_colors = [(55, 45, 148), (214, 71, 53)]
-colors = [(55, 45, 148), (214, 71, 53), (217, 208, 199), (59, 36, 36), (111, 165, 89), (226, 201, 59), (176, 63, 119)]
+colors = [(55, 45, 148), (214, 71, 53), (217, 208, 199), (59, 36, 36), (79, 122, 61), (226, 201, 59), (176, 63, 119)]
 
 
 def wta1(p):
@@ -30,5 +30,5 @@ def map_color_wta(image, gray=True):
         return im
 
 if __name__ == "__main__":
-    im1 = Image.open(getImagePath("easy02.png"))
+    im1 = Image.open(getImagePath("difficult01.png"))
     map_color_wta(im1).show()

@@ -8,7 +8,7 @@ from PIL import ImageEnhance, ImageFilter
 
 color_to_shape = {(55, 45, 148): "star", (214, 71, 53): "pacman",
                   (217, 208, 199): "hexagon1", (59, 36, 36): "hexagon2",
-                  (111, 165, 89): "sqare", (226, 201, 59): "v",
+                  (79, 122, 61): "sqare", (226, 201, 59): "v",
                   (176, 63, 119): "triangle"}
 
 def extract_piece(im, x, y):
@@ -40,7 +40,7 @@ def extract_coords(im, dimensions):
         for x in range(dimensions[0]):
             x1, x2 = x * p_width, (x + 1) * p_width
             y1, y2 = y * p_height, (y + 1) * p_height
-            im2 = im.crop((x1, y1, x2, y2)).crop((5, 5, 95, 95))
+            im2 = im.crop((x1, y1, x2, y2)).crop((8, 8, 90, 90))
             if not is_empty(im2):
                 pieces.append((x, y))
     return pieces, (p_width, p_height)
@@ -103,7 +103,7 @@ def classify(im):
 
 
 if __name__ == "__main__":
-    im1 = Image.open(getImagePath("easy02.png"))
+    im1 = Image.open(getImagePath("difficult02.png"))
     #im = map_color_wta(im1, False)
     #im.show()
     coords, cell_size = extract_coords(im1, (8, 5))
